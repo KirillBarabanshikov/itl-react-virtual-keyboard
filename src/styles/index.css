@@ -1,0 +1,72 @@
+@import 'fonts.css';
+
+.virtual-keyboard {
+  --keyboard-bg: #fafafa;
+  --key-bg: #ffffff;
+  --key-color: #2b2a29;
+  --func-key-bg: #ebebeb;
+  --func-key-color: #2b2a29;
+  --enter-key-bg: #cf3337;
+  --enter-key-color: #ffffff;
+  --key-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.3);
+
+  position: absolute;
+  left: 50%;
+  bottom: 40px;
+  transform: translateX(-50%);
+  z-index: 999;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 20px;
+}
+
+.virtual-keyboard__body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 8px;
+  border-radius: 36px;
+  padding: 24px;
+  background-color: var(--keyboard-bg);
+  width: 920px;
+}
+
+.virtual-keyboard__row {
+  display: flex;
+  column-gap: 8px;
+}
+
+.virtual-keyboard__key {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  text-align: center;
+  color: var(--key-color);
+
+  background-color: var(--key-bg);
+  border-radius: 8px;
+  width: 65px;
+  height: 48px;
+
+  box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.3);
+  transition: transform 0.1s;
+}
+
+.virtual-keyboard__key:active {
+  transform: scale(0.95);
+}
+
+.virtual-keyboard__key.virtual-keyboard__key--is-caps {
+  text-transform: uppercase;
+}
+
+.virtual-keyboard__close {
+  border-radius: 24px;
+  padding: 16px 32px;
+  width: 88px;
+  height: 56px;
+  background-color: var(--keyboard-bg);
+  color: var(--key-color);
+}

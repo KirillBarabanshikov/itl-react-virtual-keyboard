@@ -1,0 +1,1 @@
+export { updateInputValueWithCursor } from './updateInputValueWithCursor';
