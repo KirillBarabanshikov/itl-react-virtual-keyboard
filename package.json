@@ -1,6 +1,6 @@
 {
   "name": "itl-react-virtual-keyboard",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "A virtual keyboard for React applications",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",

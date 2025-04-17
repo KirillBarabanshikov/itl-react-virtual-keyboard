@@ -1,9 +1,7 @@
 import {
-  createContext,
   FC,
   PropsWithChildren,
   useCallback,
-  useContext,
   useEffect,
   useRef,
   useState,
@@ -11,22 +9,7 @@ import {
 
 import { VirtualKeyboard } from '../ui';
 
-type GoCallback = () => void;
-
-interface VirtualKeyboardContextProps {
-  subscribeOnGo: (cb: GoCallback) => () => void;
-  triggerGo: () => void;
-}
-
-const noop = () => {};
-
-export const VirtualKeyboardContext =
-  createContext<VirtualKeyboardContextProps>({
-    subscribeOnGo: () => noop,
-    triggerGo: noop,
-  });
-
-export const useVirtualKeyboard = () => useContext(VirtualKeyboardContext);
+import { VirtualKeyboardContext } from '../context';
 
 export const VirtualKeyboardProvider: FC<PropsWithChildren> = ({
   children,

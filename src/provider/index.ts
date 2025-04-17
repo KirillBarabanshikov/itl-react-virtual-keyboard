@@ -1,5 +1,1 @@
-export {
-  useVirtualKeyboard,
-  VirtualKeyboardContext,
-  VirtualKeyboardProvider,
-} from './VirtualKeyboardProvider';
+export { VirtualKeyboardProvider } from './VirtualKeyboardProvider';

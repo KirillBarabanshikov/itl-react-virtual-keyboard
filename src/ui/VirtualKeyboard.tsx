@@ -7,7 +7,7 @@ import { createPortal } from 'react-dom';
 
 import { keyboardData } from '../data';
 import { updateInputValueWithCursor } from '../lib';
-import { useVirtualKeyboard } from '../provider';
+import { useVirtualKeyboard } from '../context';
 import { KeyboardType } from '../types';
 
 interface IVirtualKeyboardProps {
@@ -89,8 +89,8 @@ export const VirtualKeyboard: FC<IVirtualKeyboardProps> = ({
   };
 
   return createPortal(
-    <AnimatePresence mode={'wait'}>
-      {show ? (
+    <AnimatePresence>
+      {show && (
         <motion.div
           initial={{ opacity: 0, pointerEvents: 'none' }}
           animate={{ opacity: 1, pointerEvents: 'initial' }}
@@ -127,8 +127,6 @@ export const VirtualKeyboard: FC<IVirtualKeyboardProps> = ({
           </div>
           <button className={'virtual-keyboard__close'} />
         </motion.div>
-      ) : (
-        <></>
       )}
     </AnimatePresence>,
     (document.getElementById('portal') as HTMLDivElement) || document.body,

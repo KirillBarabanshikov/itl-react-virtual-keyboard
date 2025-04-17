@@ -8,42 +8,30 @@ export default {
   input: 'src/index.ts',
   output: [
     {
-      file: 'dist/index.js',
+      file: 'dist/index.js', // Явно указываем файл
       format: 'cjs',
+      exports: 'named',
       sourcemap: true,
-      exports: 'auto',
     },
     {
-      file: 'dist/index.esm.js',
+      file: 'dist/index.esm.js', // Явно указываем файл
       format: 'esm',
       sourcemap: true,
     },
   ],
   plugins: [
     peerDepsExternal(),
-    resolve({
-      extensions: ['.js', '.jsx', '.ts', '.tsx'],
-    }),
-    commonjs({
-      include: /node_modules/,
-    }),
+    resolve(),
+    commonjs(),
     typescript({
       tsconfig: './tsconfig.json',
-      useTsconfigDeclarationDir: true,
-      tsconfigOverride: {
-        compilerOptions: {
-          declaration: true,
-          declarationDir: 'dist/types',
-        },
-      },
+      clean: true,
     }),
     postcss({
-      modules: true,
-      extract: false,
-      minimize: true,
+      extract: true,
+      modules: false,
       sourceMap: true,
-      use: ['sass'],
+      minimize: true,
     }),
   ],
-  external: ['react', 'react-dom', 'framer-motion', 'clsx'],
 };
