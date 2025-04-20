@@ -8,7 +8,7 @@ import { createPortal } from 'react-dom';
 import { keyboardData } from '../data';
 import { updateInputValueWithCursor } from '../lib';
 import { useVirtualKeyboard } from '../context';
-import { KeyboardType } from '../types';
+import { TKeyboardType } from '../types';
 
 interface IVirtualKeyboardProps {
   show: boolean;
@@ -19,20 +19,22 @@ export const VirtualKeyboard: FC<IVirtualKeyboardProps> = ({
   show,
   inputRef,
 }) => {
-  const [keyboardType, setKeyboardType] = useState<KeyboardType>('rus');
+  const [keyboardType, setKeyboardType] = useState<TKeyboardType>('text');
   const [isCaps, setIsCaps] = useState(false);
+  const [keyboardLayout, setKeyboardLayout] = useState<'rus' | 'eng'>('rus');
+  const [isNum, setIsNum] = useState(false);
 
   const { triggerGo } = useVirtualKeyboard();
 
   useEffect(() => {
     if (inputRef.current) {
       switch (inputRef.current.inputMode) {
-        case 'numeric':
-          setKeyboardType('num');
+        case 'email':
+          setKeyboardType('email');
           break;
 
         default:
-          setKeyboardType('rus');
+          setKeyboardType('text');
       }
     }
   }, [inputRef.current]);
@@ -60,11 +62,11 @@ export const VirtualKeyboard: FC<IVirtualKeyboardProps> = ({
         break;
 
       case 'NUM':
-        setKeyboardType((prev) => (prev === 'num' ? 'rus' : 'num'));
+        setIsNum((prev) => !prev);
         break;
 
       case 'LANG':
-        setKeyboardType((prev) => (prev === 'rus' ? 'eng' : 'rus'));
+        setKeyboardLayout((prev) => (prev === 'rus' ? 'eng' : 'rus'));
         break;
 
       case 'SPACE':
@@ -98,6 +100,8 @@ export const VirtualKeyboard: FC<IVirtualKeyboardProps> = ({
           className={clsx(
             'virtual-keyboard',
             `virtual-keyboard--${keyboardType}`,
+            `virtual-keyboard--${keyboardLayout}`,
+            isNum && `virtual-keyboard--is-num`,
           )}
         >
           <div
@@ -105,13 +109,15 @@ export const VirtualKeyboard: FC<IVirtualKeyboardProps> = ({
             onMouseDown={(e) => e.preventDefault()}
             className={'virtual-keyboard__body'}
           >
-            {keyboardData[keyboardType].map((row, index) => {
+            {keyboardData[keyboardType][isNum ? 'num' : keyboardLayout][
+              isCaps ? 'caps' : 'default'
+            ].map((row, index) => {
               return (
                 <div key={index} className={'virtual-keyboard__row'}>
                   {row.map((key, index) => (
                     <button
                       key={index}
-                      data-key={isCaps ? key.toUpperCase() : key}
+                      data-key={key}
                       className={clsx(
                         'virtual-keyboard__key',
                         `virtual-keyboard__key--${key}`,

@@ -1,1 +1,1 @@
-export { type KeyboardType } from './types';
+export type { TKeyboardType, TKeyboardData } from './types';
